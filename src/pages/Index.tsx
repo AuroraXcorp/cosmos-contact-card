@@ -1,4 +1,4 @@
-import { Globe, Briefcase, MessageCircle, Sparkles } from "lucide-react";
+import { Globe, Briefcase, MessageCircle, Sparkles, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import automaLogo from "@/assets/automa-logo.png";
 
@@ -27,7 +27,6 @@ const TikTokIcon = () => (
 );
 
 const Index = () => {
-  const whatsappLink = "https://wa.me/5500000000000?text=Olá! Gostaria de saber mais sobre os serviços da Automa.";
   const [form, setForm] = useState({ nome: "", email: "", telefone: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,8 +36,8 @@ const Index = () => {
   };
 
   const links = [
-    { title: "Nosso Site", description: "Conheça nossos serviços e soluções", href: "#", icon: <Globe className="h-5 w-5" /> },
-    { title: "Portfólio", description: "Veja nossos projetos e cases", href: "#", icon: <Briefcase className="h-5 w-5" /> },
+    { title: "Nosso Site", description: "Conheça nossos serviços", href: "#", icon: <Globe className="h-5 w-5" /> },
+    { title: "Portfólio", description: "Veja nossos cases", href: "#", icon: <Briefcase className="h-5 w-5" /> },
   ];
 
   const socials = [
@@ -48,93 +47,118 @@ const Index = () => {
     { icon: <TikTokIcon />, href: "#", label: "TikTok" },
   ];
 
+  const glassInput = "w-full rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl px-4 py-3.5 text-sm text-white/90 placeholder-white/25 outline-none transition-all duration-500 focus:border-white/20 focus:bg-white/[0.07] focus:shadow-[0_0_20px_rgba(221,228,225,0.05)]";
+
   return (
     <div
-      className="relative min-h-screen flex flex-col items-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #010a10 0%, #002134 15%, #1e0638 45%, #1e0638 85%, #dde4e1 100%)",
+        background: `
+          radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,33,52,0.6) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 40% at 30% 20%, rgba(30,6,56,0.5) 0%, transparent 50%),
+          radial-gradient(ellipse 50% 30% at 70% 80%, rgba(221,228,225,0.08) 0%, transparent 50%),
+          linear-gradient(180deg, #020810 0%, #041420 8%, #002134 20%, #0f0525 40%, #1e0638 60%, #1a0a30 80%, #dde4e1 100%)
+        `,
       }}
     >
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[500px] rounded-full bg-[#002134] opacity-30 blur-[120px]" />
-        <div className="absolute top-32 left-1/2 -translate-x-1/2 h-[200px] w-[250px] rounded-full bg-[#1e0638] opacity-25 blur-[80px]" />
+      {/* Ambient light effects */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 h-[40vh] w-[80vw] max-w-[500px] rounded-full bg-[#002134] opacity-40 blur-[100px]" />
+        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 h-[20vh] w-[40vw] max-w-[300px] rounded-full bg-[#2a0a50] opacity-20 blur-[80px]" />
+        <div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 h-[15vh] w-[60vw] max-w-[400px] rounded-full bg-[#dde4e1] opacity-[0.06] blur-[60px]" />
       </div>
 
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center px-5 sm:px-6 py-12 sm:py-16">
+      <div className="relative z-10 flex w-full max-w-[380px] flex-col items-center px-6 py-14">
         {/* Logo */}
-        <div className="mb-3 flex flex-col items-center">
-          <img src={automaLogo} alt="Automa" className="h-11 sm:h-14 mb-5 invert" />
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-3 w-3 text-[#dde4e1]/50" />
-            <p className="text-[10px] sm:text-[11px] text-[#dde4e1]/50 tracking-[0.25em] uppercase">
-              Automação & Tecnologia
-            </p>
-            <Sparkles className="h-3 w-3 text-[#dde4e1]/50" />
-          </div>
+        <img src={automaLogo} alt="Automa" className="h-12 mb-4 invert" />
+        <div className="flex items-center gap-2.5 mb-8">
+          <Sparkles className="h-3 w-3 text-white/30" />
+          <p className="text-[10px] text-white/30 tracking-[0.3em] uppercase font-light">
+            Automação & Tecnologia
+          </p>
+          <Sparkles className="h-3 w-3 text-white/30" />
         </div>
 
-        <div className="my-5 h-px w-12 bg-gradient-to-r from-transparent via-[#dde4e1]/15 to-transparent" />
+        {/* Glass Form Card */}
+        <div className="w-full rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">
+          <p className="text-center text-xs text-white/40 tracking-widest uppercase mb-4 font-light">
+            Entre em contato
+          </p>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <input
+              type="text"
+              placeholder="Nome"
+              required
+              value={form.nome}
+              onChange={(e) => setForm({ ...form, nome: e.target.value })}
+              className={glassInput}
+            />
+            <input
+              type="email"
+              placeholder="E-mail"
+              required
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className={glassInput}
+            />
+            <input
+              type="tel"
+              placeholder="Telefone"
+              required
+              value={form.telefone}
+              onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+              className={glassInput}
+            />
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3 mb-4">
-          <input
-            type="text"
-            placeholder="Nome"
-            required
-            value={form.nome}
-            onChange={(e) => setForm({ ...form, nome: e.target.value })}
-            className="w-full rounded-xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-sm px-4 py-3 text-sm text-[#dde4e1] placeholder-[#dde4e1]/30 outline-none transition-all focus:border-[#dde4e1]/30 focus:bg-[#dde4e1]/8"
-          />
-          <input
-            type="email"
-            placeholder="E-mail"
-            required
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full rounded-xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-sm px-4 py-3 text-sm text-[#dde4e1] placeholder-[#dde4e1]/30 outline-none transition-all focus:border-[#dde4e1]/30 focus:bg-[#dde4e1]/8"
-          />
-          <input
-            type="tel"
-            placeholder="Telefone"
-            required
-            value={form.telefone}
-            onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-            className="w-full rounded-xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-sm px-4 py-3 text-sm text-[#dde4e1] placeholder-[#dde4e1]/30 outline-none transition-all focus:border-[#dde4e1]/30 focus:bg-[#dde4e1]/8"
-          />
+            {/* CTA - Liquid Glass */}
+            <button
+              type="submit"
+              className="group relative mt-2 flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-2xl py-4 px-6 font-medium text-sm tracking-wide transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_40px_rgba(221,228,225,0.15)]"
+              style={{
+                background: "linear-gradient(135deg, rgba(221,228,225,0.95) 0%, rgba(221,228,225,0.8) 50%, rgba(255,255,255,0.95) 100%)",
+                color: "#0a0a12",
+              }}
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+                background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(221,228,225,0.9) 100%)",
+              }} />
+              <div className="absolute inset-0 rounded-2xl opacity-40" style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 50%)",
+              }} />
+              <MessageCircle className="h-4.5 w-4.5 relative z-10" />
+              <span className="relative z-10 font-semibold">Fale Conosco</span>
+            </button>
+          </form>
+        </div>
 
-          {/* CTA */}
-          <button
-            type="submit"
-            className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl border border-[#dde4e1]/20 bg-[#dde4e1] py-4 px-6 font-semibold text-[#002134] text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#dde4e1]/15 active:scale-[0.98]"
-          >
-            <MessageCircle className="h-5 w-5" />
-            Fale Conosco
-          </button>
-        </form>
-
-        {/* Links */}
-        <div className="flex w-full flex-col gap-3 mt-4">
+        {/* Links - Liquid Glass */}
+        <div className="flex w-full flex-col gap-3 mt-6">
           {links.map((link) => (
             <a
               key={link.title}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex w-full items-center gap-4 rounded-2xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-md px-4 sm:px-5 py-3.5 sm:py-4 transition-all duration-300 hover:border-[#dde4e1]/25 hover:bg-[#dde4e1]/10 hover:scale-[1.02]"
+              className="group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl px-5 py-4 transition-all duration-500 hover:border-white/[0.15] hover:bg-white/[0.06] hover:shadow-[0_4px_24px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)] hover:scale-[1.01]"
             >
-              <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#dde4e1]/10 text-[#dde4e1]/80">
-                {link.icon}
+              {/* Glass reflection */}
+              <div className="absolute inset-x-0 top-0 h-1/2 rounded-t-2xl opacity-[0.03] bg-gradient-to-b from-white to-transparent" />
+              <div className="flex items-center gap-3.5 relative z-10">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.05] text-white/60 group-hover:text-white/90 transition-colors duration-500">
+                  {link.icon}
+                </div>
+                <div>
+                  <h3 className="text-[13px] font-medium text-white/85 group-hover:text-white transition-colors duration-500">{link.title}</h3>
+                  <p className="text-[11px] text-white/30 mt-0.5">{link.description}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-medium text-[#dde4e1]">{link.title}</h3>
-                <p className="text-[11px] sm:text-xs text-[#dde4e1]/45 mt-0.5">{link.description}</p>
-              </div>
+              <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-white/50 transition-all duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 relative z-10" />
             </a>
           ))}
         </div>
 
-        {/* Social */}
-        <div className="mt-10 flex items-center gap-4">
+        {/* Social Icons - Liquid Glass */}
+        <div className="mt-10 flex items-center gap-3">
           {socials.map((s) => (
             <a
               key={s.label}
@@ -142,14 +166,15 @@ const Index = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#dde4e1]/10 bg-[#dde4e1]/5 text-[#dde4e1]/50 transition-all duration-300 hover:border-[#dde4e1]/30 hover:bg-[#dde4e1]/10 hover:text-[#dde4e1] hover:scale-110"
+              className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl text-white/40 transition-all duration-500 hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white/90 hover:scale-110 hover:shadow-[0_0_20px_rgba(221,228,225,0.08)]"
             >
-              {s.icon}
+              <div className="absolute inset-x-0 top-0 h-1/2 rounded-t-full opacity-[0.04] bg-gradient-to-b from-white to-transparent" />
+              <span className="relative z-10">{s.icon}</span>
             </a>
           ))}
         </div>
 
-        <p className="mt-12 text-[10px] text-[#dde4e1]/20 tracking-widest uppercase">
+        <p className="mt-12 text-[9px] text-white/15 tracking-[0.3em] uppercase font-light">
           © 2026 Automa
         </p>
       </div>
