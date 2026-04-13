@@ -1,6 +1,6 @@
 import { Globe, Briefcase, MessageCircle, Sparkles } from "lucide-react";
+import { useState } from "react";
 import automaLogo from "@/assets/automa-logo.png";
-import LinkCard from "@/components/LinkCard";
 
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg">
@@ -28,20 +28,17 @@ const TikTokIcon = () => (
 
 const Index = () => {
   const whatsappLink = "https://wa.me/5500000000000?text=Olá! Gostaria de saber mais sobre os serviços da Automa.";
+  const [form, setForm] = useState({ nome: "", email: "", telefone: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const msg = `Olá! Meu nome é ${form.nome}, meu e-mail é ${form.email} e meu telefone é ${form.telefone}. Gostaria de saber mais!`;
+    window.open(`https://wa.me/5500000000000?text=${encodeURIComponent(msg)}`, "_blank");
+  };
 
   const links = [
-    {
-      title: "Nosso Site",
-      description: "Conheça nossos serviços e soluções",
-      href: "#",
-      icon: <Globe className="h-5 w-5" />,
-    },
-    {
-      title: "Portfólio",
-      description: "Veja nossos projetos e cases",
-      href: "#",
-      icon: <Briefcase className="h-5 w-5" />,
-    },
+    { title: "Nosso Site", description: "Conheça nossos serviços e soluções", href: "#", icon: <Globe className="h-5 w-5" /> },
+    { title: "Portfólio", description: "Veja nossos projetos e cases", href: "#", icon: <Briefcase className="h-5 w-5" /> },
   ];
 
   const socials = [
@@ -55,69 +52,89 @@ const Index = () => {
     <div
       className="relative min-h-screen flex flex-col items-center overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #002134 0%, #1e0638 30%, #1e0638 55%, #dde4e1 100%)",
+        background: "linear-gradient(180deg, #010a10 0%, #002134 15%, #1e0638 45%, #1e0638 85%, #dde4e1 100%)",
       }}
     >
-      {/* Subtle glow effects */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[600px] rounded-full bg-[#1e0638] opacity-40 blur-[120px]" />
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 h-[200px] w-[300px] rounded-full bg-[#002134] opacity-30 blur-[80px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[500px] rounded-full bg-[#002134] opacity-30 blur-[120px]" />
+        <div className="absolute top-32 left-1/2 -translate-x-1/2 h-[200px] w-[250px] rounded-full bg-[#1e0638] opacity-25 blur-[80px]" />
       </div>
 
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center px-6 py-16">
+      <div className="relative z-10 flex w-full max-w-md flex-col items-center px-5 sm:px-6 py-12 sm:py-16">
         {/* Logo */}
-        <div className="mb-4 flex flex-col items-center">
-          <img
-            src={automaLogo}
-            alt="Automa"
-            className="h-14 mb-6 invert"
-          />
+        <div className="mb-3 flex flex-col items-center">
+          <img src={automaLogo} alt="Automa" className="h-11 sm:h-14 mb-5 invert" />
           <div className="flex items-center gap-2">
-            <Sparkles className="h-3 w-3 text-[#dde4e1]/60" />
-            <p className="text-[11px] text-[#dde4e1]/60 tracking-[0.25em] uppercase">
+            <Sparkles className="h-3 w-3 text-[#dde4e1]/50" />
+            <p className="text-[10px] sm:text-[11px] text-[#dde4e1]/50 tracking-[0.25em] uppercase">
               Automação & Tecnologia
             </p>
-            <Sparkles className="h-3 w-3 text-[#dde4e1]/60" />
+            <Sparkles className="h-3 w-3 text-[#dde4e1]/50" />
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="my-6 h-px w-16 bg-gradient-to-r from-transparent via-[#dde4e1]/20 to-transparent" />
+        <div className="my-5 h-px w-12 bg-gradient-to-r from-transparent via-[#dde4e1]/15 to-transparent" />
 
-        {/* CTA WhatsApp */}
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mb-10 flex w-full items-center justify-center gap-3 rounded-2xl border border-[#dde4e1]/20 bg-[#dde4e1] py-4 px-6 font-medium text-[#002134] transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#dde4e1]/15 active:scale-[0.98]"
-        >
-          <MessageCircle className="h-5 w-5" />
-          <span className="text-sm font-semibold tracking-wide">Fale Conosco</span>
-        </a>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3 mb-4">
+          <input
+            type="text"
+            placeholder="Nome"
+            required
+            value={form.nome}
+            onChange={(e) => setForm({ ...form, nome: e.target.value })}
+            className="w-full rounded-xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-sm px-4 py-3 text-sm text-[#dde4e1] placeholder-[#dde4e1]/30 outline-none transition-all focus:border-[#dde4e1]/30 focus:bg-[#dde4e1]/8"
+          />
+          <input
+            type="email"
+            placeholder="E-mail"
+            required
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="w-full rounded-xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-sm px-4 py-3 text-sm text-[#dde4e1] placeholder-[#dde4e1]/30 outline-none transition-all focus:border-[#dde4e1]/30 focus:bg-[#dde4e1]/8"
+          />
+          <input
+            type="tel"
+            placeholder="Telefone"
+            required
+            value={form.telefone}
+            onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+            className="w-full rounded-xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-sm px-4 py-3 text-sm text-[#dde4e1] placeholder-[#dde4e1]/30 outline-none transition-all focus:border-[#dde4e1]/30 focus:bg-[#dde4e1]/8"
+          />
+
+          {/* CTA */}
+          <button
+            type="submit"
+            className="mt-2 flex w-full items-center justify-center gap-3 rounded-2xl border border-[#dde4e1]/20 bg-[#dde4e1] py-4 px-6 font-semibold text-[#002134] text-sm tracking-wide transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#dde4e1]/15 active:scale-[0.98]"
+          >
+            <MessageCircle className="h-5 w-5" />
+            Fale Conosco
+          </button>
+        </form>
 
         {/* Links */}
-        <div className="flex w-full flex-col gap-3">
+        <div className="flex w-full flex-col gap-3 mt-4">
           {links.map((link) => (
             <a
               key={link.title}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex w-full items-center gap-4 rounded-2xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-md px-5 py-4 transition-all duration-300 hover:border-[#dde4e1]/25 hover:bg-[#dde4e1]/10 hover:scale-[1.02]"
+              className="group flex w-full items-center gap-4 rounded-2xl border border-[#dde4e1]/10 bg-[#dde4e1]/5 backdrop-blur-md px-4 sm:px-5 py-3.5 sm:py-4 transition-all duration-300 hover:border-[#dde4e1]/25 hover:bg-[#dde4e1]/10 hover:scale-[1.02]"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#dde4e1]/10 text-[#dde4e1]/80">
+              <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#dde4e1]/10 text-[#dde4e1]/80">
                 {link.icon}
               </div>
               <div>
                 <h3 className="text-sm font-medium text-[#dde4e1]">{link.title}</h3>
-                <p className="text-xs text-[#dde4e1]/50 mt-0.5">{link.description}</p>
+                <p className="text-[11px] sm:text-xs text-[#dde4e1]/45 mt-0.5">{link.description}</p>
               </div>
             </a>
           ))}
         </div>
 
-        {/* Social Icons */}
-        <div className="mt-12 flex items-center gap-5">
+        {/* Social */}
+        <div className="mt-10 flex items-center gap-4">
           {socials.map((s) => (
             <a
               key={s.label}
@@ -125,15 +142,14 @@ const Index = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dde4e1]/10 bg-[#dde4e1]/5 text-[#dde4e1]/60 transition-all duration-300 hover:border-[#dde4e1]/30 hover:bg-[#dde4e1]/10 hover:text-[#dde4e1] hover:scale-110"
+              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#dde4e1]/10 bg-[#dde4e1]/5 text-[#dde4e1]/50 transition-all duration-300 hover:border-[#dde4e1]/30 hover:bg-[#dde4e1]/10 hover:text-[#dde4e1] hover:scale-110"
             >
               {s.icon}
             </a>
           ))}
         </div>
 
-        {/* Footer */}
-        <p className="mt-14 text-[10px] text-[#dde4e1]/25 tracking-widest uppercase">
+        <p className="mt-12 text-[10px] text-[#dde4e1]/20 tracking-widest uppercase">
           © 2026 Automa
         </p>
       </div>
