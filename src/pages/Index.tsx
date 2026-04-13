@@ -1,6 +1,7 @@
 import { Globe, Briefcase, MessageCircle, Sparkles, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import automaLogo from "@/assets/automa-logo.png";
+import { playFocusSound, playClickSound, playSubmitSound } from "@/lib/sounds";
 
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg">
@@ -31,8 +32,11 @@ const Index = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    playSubmitSound();
     const msg = `Olá! Meu nome é ${form.nome}, meu e-mail é ${form.email} e meu telefone é ${form.telefone}. Gostaria de saber mais!`;
-    window.open(`https://wa.me/5500000000000?text=${encodeURIComponent(msg)}`, "_blank");
+    setTimeout(() => {
+      window.open(`https://wa.me/5500000000000?text=${encodeURIComponent(msg)}`, "_blank");
+    }, 300);
   };
 
   const links = [
@@ -47,7 +51,8 @@ const Index = () => {
     { icon: <TikTokIcon />, href: "#", label: "TikTok" },
   ];
 
-  const glassInput = "w-full rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl px-4 py-3.5 text-sm text-white/90 placeholder-white/25 outline-none transition-all duration-500 focus:border-white/20 focus:bg-white/[0.07] focus:shadow-[0_0_20px_rgba(221,228,225,0.05)]";
+  const glassInput =
+    "w-full rounded-2xl border border-white/[0.12] bg-white/[0.06] backdrop-blur-xl px-4 py-3.5 text-sm text-white/90 placeholder-white/30 outline-none transition-all duration-500 focus:border-white/25 focus:bg-white/[0.1] focus:shadow-[0_0_24px_rgba(255,255,255,0.06),inset_0_1px_0_rgba(255,255,255,0.08)]";
 
   return (
     <div
@@ -79,56 +84,92 @@ const Index = () => {
           <Sparkles className="h-3 w-3 text-white/30" />
         </div>
 
-        {/* Glass Form Card */}
-        <div className="w-full rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">
-          <p className="text-center text-xs text-white/40 tracking-widest uppercase mb-4 font-light">
-            Entre em contato
-          </p>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <input
-              type="text"
-              placeholder="Nome"
-              required
-              value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value })}
-              className={glassInput}
+        {/* Liquid Glass Form Card */}
+        <div
+          className="relative w-full overflow-hidden rounded-[28px] p-[1px]"
+          style={{
+            background: "linear-gradient(160deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.08) 100%)",
+          }}
+        >
+          <div
+            className="relative rounded-[27px] p-6 overflow-hidden"
+            style={{
+              background: "linear-gradient(160deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.06) 100%)",
+              backdropFilter: "blur(40px) saturate(1.5)",
+              WebkitBackdropFilter: "blur(40px) saturate(1.5)",
+              boxShadow: "0 12px 48px rgba(0,0,0,0.4), 0 2px 12px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.1)",
+            }}
+          >
+            {/* Glass shine / reflection */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-[45%] rounded-t-[27px]"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 60%, transparent 100%)",
+              }}
             />
-            <input
-              type="email"
-              placeholder="E-mail"
-              required
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className={glassInput}
-            />
-            <input
-              type="tel"
-              placeholder="Telefone"
-              required
-              value={form.telefone}
-              onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-              className={glassInput}
+            {/* Refraction highlight */}
+            <div
+              className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)",
+              }}
             />
 
-            {/* CTA - Liquid Glass */}
-            <button
-              type="submit"
-              className="group relative mt-2 flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-2xl py-4 px-6 font-medium text-sm tracking-wide transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_40px_rgba(221,228,225,0.15)]"
-              style={{
-                background: "linear-gradient(135deg, rgba(221,228,225,0.95) 0%, rgba(221,228,225,0.8) 50%, rgba(255,255,255,0.95) 100%)",
-                color: "#0a0a12",
-              }}
-            >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
-                background: "linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(221,228,225,0.9) 100%)",
-              }} />
-              <div className="absolute inset-0 rounded-2xl opacity-40" style={{
-                background: "linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 50%)",
-              }} />
-              <MessageCircle className="h-4.5 w-4.5 relative z-10" />
-              <span className="relative z-10 font-semibold">Fale Conosco</span>
-            </button>
-          </form>
+            <p className="relative z-10 text-center text-[11px] text-white/60 tracking-[0.25em] uppercase mb-5 font-light">
+              ✦ Entre em contato ✦
+            </p>
+            <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-3">
+              <input
+                type="text"
+                placeholder="Nome"
+                required
+                value={form.nome}
+                onChange={(e) => setForm({ ...form, nome: e.target.value })}
+                onFocus={playFocusSound}
+                className={glassInput}
+              />
+              <input
+                type="email"
+                placeholder="E-mail"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                onFocus={playFocusSound}
+                className={glassInput}
+              />
+              <input
+                type="tel"
+                placeholder="Telefone"
+                required
+                value={form.telefone}
+                onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+                onFocus={playFocusSound}
+                className={glassInput}
+              />
+
+              {/* CTA Button - Liquid Glass */}
+              <button
+                type="submit"
+                className="group relative mt-3 flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-2xl py-4 px-6 font-semibold text-sm tracking-wide transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
+                style={{
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(221,228,225,0.85) 50%, rgba(255,255,255,0.95) 100%)",
+                  color: "#1e0638",
+                  boxShadow: "0 8px 32px rgba(221,228,225,0.15), 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.6)",
+                }}
+              >
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: "linear-gradient(135deg, #fff 0%, #f0f2f1 100%)" }}
+                />
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl"
+                  style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%)" }}
+                />
+                <MessageCircle className="h-[18px] w-[18px] relative z-10" />
+                <span className="relative z-10">Fale Conosco</span>
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* Links - Liquid Glass */}
@@ -139,25 +180,37 @@ const Index = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl px-5 py-4 transition-all duration-500 hover:border-white/[0.15] hover:bg-white/[0.06] hover:shadow-[0_4px_24px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)] hover:scale-[1.01]"
+              onClick={playClickSound}
+              className="group relative flex w-full items-center justify-between overflow-hidden rounded-2xl p-[1px] transition-all duration-500 hover:scale-[1.01]"
+              style={{
+                background: "linear-gradient(160deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.05) 100%)",
+              }}
             >
-              {/* Glass reflection */}
-              <div className="absolute inset-x-0 top-0 h-1/2 rounded-t-2xl opacity-[0.03] bg-gradient-to-b from-white to-transparent" />
-              <div className="flex items-center gap-3.5 relative z-10">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.05] text-white/60 group-hover:text-white/90 transition-colors duration-500">
-                  {link.icon}
+              <div
+                className="relative flex w-full items-center justify-between rounded-[15px] px-5 py-4 overflow-hidden"
+                style={{
+                  background: "linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+                  backdropFilter: "blur(30px)",
+                  WebkitBackdropFilter: "blur(30px)",
+                }}
+              >
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[15px] opacity-[0.04] bg-gradient-to-b from-white to-transparent" />
+                <div className="flex items-center gap-3.5 relative z-10">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.06] text-white/60 group-hover:text-white/90 transition-colors duration-500">
+                    {link.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-[13px] font-medium text-white/85 group-hover:text-white transition-colors duration-500">{link.title}</h3>
+                    <p className="text-[11px] text-white/30 mt-0.5">{link.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-[13px] font-medium text-white/85 group-hover:text-white transition-colors duration-500">{link.title}</h3>
-                  <p className="text-[11px] text-white/30 mt-0.5">{link.description}</p>
-                </div>
+                <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-white/50 transition-all duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 relative z-10" />
               </div>
-              <ArrowUpRight className="h-4 w-4 text-white/20 group-hover:text-white/50 transition-all duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 relative z-10" />
             </a>
           ))}
         </div>
 
-        {/* Social Icons - Liquid Glass */}
+        {/* Social Icons */}
         <div className="mt-10 flex items-center gap-3">
           {socials.map((s) => (
             <a
@@ -166,9 +219,15 @@ const Index = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl text-white/40 transition-all duration-500 hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white/90 hover:scale-110 hover:shadow-[0_0_20px_rgba(221,228,225,0.08)]"
+              onClick={playClickSound}
+              className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/[0.1] text-white/40 transition-all duration-500 hover:border-white/[0.2] hover:text-white/90 hover:scale-110"
+              style={{
+                background: "linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+              }}
             >
-              <div className="absolute inset-x-0 top-0 h-1/2 rounded-t-full opacity-[0.04] bg-gradient-to-b from-white to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full opacity-[0.06] bg-gradient-to-b from-white to-transparent" />
               <span className="relative z-10">{s.icon}</span>
             </a>
           ))}
