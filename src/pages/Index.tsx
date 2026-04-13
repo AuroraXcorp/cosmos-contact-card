@@ -54,18 +54,18 @@ const Index = () => {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{
         background: `
-          radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,33,52,0.6) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 40% at 30% 20%, rgba(30,6,56,0.5) 0%, transparent 50%),
-          radial-gradient(ellipse 50% 30% at 70% 80%, rgba(221,228,225,0.08) 0%, transparent 50%),
-          linear-gradient(180deg, #020810 0%, #041420 8%, #002134 20%, #0f0525 40%, #1e0638 60%, #1a0a30 80%, #dde4e1 100%)
+          radial-gradient(ellipse 90% 60% at 50% 0%, rgba(50,10,90,0.5) 0%, transparent 50%),
+          radial-gradient(ellipse 60% 40% at 70% 15%, rgba(30,6,56,0.4) 0%, transparent 45%),
+          radial-gradient(ellipse 50% 25% at 50% 90%, rgba(221,228,225,0.1) 0%, transparent 50%),
+          linear-gradient(180deg, #1e0638 0%, #1a0535 10%, #170430 25%, #130328 40%, #0f0220 55%, #0a0118 70%, #060110 82%, #dde4e1 100%)
         `,
       }}
     >
       {/* Ambient light effects */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 h-[40vh] w-[80vw] max-w-[500px] rounded-full bg-[#002134] opacity-40 blur-[100px]" />
-        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 h-[20vh] w-[40vw] max-w-[300px] rounded-full bg-[#2a0a50] opacity-20 blur-[80px]" />
-        <div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 h-[15vh] w-[60vw] max-w-[400px] rounded-full bg-[#dde4e1] opacity-[0.06] blur-[60px]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 h-[50vh] w-[90vw] max-w-[600px] rounded-full bg-[#2a0a55] opacity-50 blur-[100px]" />
+        <div className="absolute top-[5%] left-1/2 -translate-x-1/2 h-[30vh] w-[50vw] max-w-[350px] rounded-full bg-[#3d1070] opacity-20 blur-[80px]" />
+        <div className="absolute bottom-[5%] left-1/2 -translate-x-1/2 h-[15vh] w-[60vw] max-w-[400px] rounded-full bg-[#dde4e1] opacity-[0.05] blur-[60px]" />
       </div>
 
       <div className="relative z-10 flex w-full max-w-[380px] flex-col items-center px-6 py-14">
