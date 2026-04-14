@@ -41,7 +41,7 @@ const Index = () => {
 
   const links = [
     { title: "Nosso Site", description: "Conheça nossos serviços", href: "#", icon: <Globe className="h-5 w-5" /> },
-    { title: "Portfólio", description: "Veja nossos cases", href: "#", icon: <Briefcase className="h-5 w-5" /> },
+    { title: "Comunidade", description: "Entre na nossa comunidade", href: "#", icon: <Briefcase className="h-5 w-5" /> },
   ];
 
   const socials = [
